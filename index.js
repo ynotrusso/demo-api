@@ -1,7 +1,11 @@
 import express from 'express'
 import 'dotenv/config'
-const app = express()
 import db from './db.js'
+import bodyParser from 'body-parser'
+
+const app = express()
+app.use(bodyParser.json())
+
 
 app.get('/fruits', async (req, res) => {
     let price = req.query.price
@@ -17,8 +21,9 @@ app.get('/fruits', async (req, res) => {
 })
 
 app.post('/fruits', (req, res) => {
+    console.log(req.body)
     db.query(`INSERT INTO fruits (name, price, featured)
-    VALUES ('mango', 15, true)`)
+    VALUES ('${req.body.name}', '${req.body.price}', ${req.body.featured || false})`)
     res.send('fruit inserted')
 })
 
