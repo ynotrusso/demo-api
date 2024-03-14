@@ -1,11 +1,9 @@
 import express from 'express'
 import 'dotenv/config'
 import db from './db.js'
-import bodyParser from 'body-parser'
 
 const app = express()
-app.use(bodyParser.json())
-
+app.use(express.json())
 
 app.get('/fruits', async (req, res) => {
     let price = req.query.price
